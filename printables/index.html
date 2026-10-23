@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free brushing printables — Brushee</title>
+<meta name="description" content="Free printable tooth brushing chart, 30-day tracker and toothpaste guide for kids. Print them and put them next to the sink.">
+<link rel="canonical" href="https://solongastoria.github.io/brushee/printables/">
+<link rel="icon" href="../assets/icon.png">
+<style>
+  :root {
+    --mint: #ddf5e7;
+    --mint-deep: #57c79a;
+    --coral: #ff8a63;
+    --ink: #23263a;
+    --ink-soft: #4c5168;
+    --cream: #fffdf7;
+    --line: #dfe9e3;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--cream); color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    line-height: 1.55;
+  }
+  .wrap { width: min(860px, calc(100% - 36px)); margin: 0 auto; }
+  header { padding: 28px 0 10px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; text-decoration: none; color: var(--ink); }
+  .brand img { width: 32px; height: 32px; border-radius: 8px; }
+  .print-btn {
+    border: 0; background: var(--ink); color: #fff; font-weight: 700; font-size: 15px;
+    padding: 11px 18px; border-radius: 999px; cursor: pointer;
+  }
+  h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.1; margin: 18px 0 6px; letter-spacing: -0.02em; }
+  .sub { color: var(--ink-soft); margin: 0 0 26px; }
+  .card {
+    background: #fff; border: 1px solid var(--line); border-radius: 22px;
+    padding: 26px; margin: 0 0 22px; break-inside: avoid;
+  }
+  h2 { font-size: 22px; margin: 0 0 4px; }
+  .note { color: var(--ink-soft); font-size: 14px; margin: 0 0 18px; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .step { border: 1.5px solid var(--line); border-radius: 14px; padding: 14px; background: #fbfefc; }
+  .step .box { width: 20px; height: 20px; border: 2px solid var(--mint-deep); border-radius: 5px; margin-bottom: 10px; }
+  .step b { display: block; font-size: 15px; }
+  .step span { font-size: 13px; color: var(--ink-soft); }
+  .tracker { display: grid; grid-template-columns: repeat(10, 1fr); gap: 8px; margin-top: 6px; }
+  .day {
+    aspect-ratio: 1; border: 1.5px solid var(--line); border-radius: 8px;
+    display: grid; place-items: center; font-size: 11px; color: #6b7280; background: #fbfefc;
+  }
+  .paste { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .paste div { text-align: center; border: 1.5px solid var(--line); border-radius: 14px; padding: 16px 10px; }
+  .paste .dot { width: 18px; height: 18px; border-radius: 50%; background: var(--coral); margin: 0 auto 8px; }
+  .paste .dot.pea { width: 26px; height: 26px; }
+  .paste b { display: block; font-size: 14px; }
+  .paste span { font-size: 12.5px; color: var(--ink-soft); }
+  footer { padding: 18px 0 50px; color: var(--ink-soft); font-size: 13px; }
+  footer a { color: var(--ink); }
+  .fine { font-size: 12px; color: #6b7280; margin-top: 10px; }
+  @media (max-width: 620px) {
+    .steps, .paste { grid-template-columns: 1fr; }
+    .tracker { grid-template-columns: repeat(6, 1fr); }
+  }
+  @media print {
+    body { background: #fff; }
+    header, .print-btn, .no-print { display: none !important; }
+    .wrap { width: 100%; }
+    .card { border: 1px solid #bbb; box-shadow: none; margin: 0 0 12mm; padding: 8mm; }
+    h1 { font-size: 24pt; }
+    a { color: inherit; text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="brand" href="../index.html"><img src="../assets/icon.png" alt="">Brushee</a>
+    <button class="print-btn" onclick="window.print()">Print these</button>
+  </header>
+
+  <h1>Free brushing printables</h1>
+  <p class="sub">Three pages for the bathroom wall. Print them, use them, no sign-up.</p>
+
+  <section class="card">
+    <h2>The 2-minute brushing routine</h2>
+    <p class="note">One box per step. 30 seconds per area — then the chewing surfaces and the tongue.</p>
+    <div class="steps">
+      <div class="step"><div class="box"></div><b>Upper left</b><span>30 seconds</span></div>
+      <div class="step"><div class="box"></div><b>Lower left</b><span>30 seconds</span></div>
+      <div class="step"><div class="box"></div><b>Upper right</b><span>30 seconds</span></div>
+      <div class="step"><div class="box"></div><b>Lower right</b><span>30 seconds</span></div>
+      <div class="step"><div class="box"></div><b>Chewing surfaces</b><span>20 seconds</span></div>
+      <div class="step"><div class="box"></div><b>Tongue</b><span>10 seconds</span></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>30-day tracker</h2>
+    <p class="note">One box a day. Two minutes each. No leaderboard, no shame — just a record.</p>
+    <div class="tracker">
+      <div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div>
+      <div class="day">6</div><div class="day">7</div><div class="day">8</div><div class="day">9</div><div class="day">10</div>
+      <div class="day">11</div><div class="day">12</div><div class="day">13</div><div class="day">14</div><div class="day">15</div>
+      <div class="day">16</div><div class="day">17</div><div class="day">18</div><div class="day">19</div><div class="day">20</div>
+      <div class="day">21</div><div class="day">22</div><div class="day">23</div><div class="day">24</div><div class="day">25</div>
+      <div class="day">26</div><div class="day">27</div><div class="day">28</div><div class="day">29</div><div class="day">30</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>How much toothpaste, by age</h2>
+    <p class="note">Fluoride toothpaste. After brushing, spit — don't rinse with water.</p>
+    <div class="paste">
+      <div><div class="dot" style="width:12px;height:12px"></div><b>Under 3</b><span>A smear</span></div>
+      <div><div class="dot pea"></div><b>Age 3–6</b><span>A pea-sized amount</span></div>
+      <div><div class="dot pea"></div><b>Age 6+</b><span>A pea-sized amount</span></div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="no-print">Want the routine guided on screen? <a href="https://play.google.com/store/apps/details?id=com.brushyourteeth.app">Brushee is on Google Play</a> — a camera-guided brushing coach for kids 6–12.</p>
+    <p class="fine">General tooth-brushing guidance for children, not medical advice. Every child is different. For any oral-health concern, see a dentist.</p>
+  </footer>
+</div>
+</body>
+</html>

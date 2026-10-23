@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brushee — a camera-guided tooth brushing coach for kids 6–12</title>
+<meta name="description" content="Brushee guides kids aged 6–12 through a full 2-minute tooth brushing routine with the front camera. A 16-tooth monster turns the timer into a game. Free core app. No ads, no account, no internet permission.">
+<link rel="canonical" href="https://solongastoria.github.io/brushee/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Brushee — a tooth brushing coach for kids 6–12">
+<meta property="og:description" content="Camera-guided 2-minute brushing routine. A 16-tooth monster turns the timer into a game. Free core app. No ads, no account, no internet permission.">
+<meta property="og:image" content="https://solongastoria.github.io/brushee/assets/og.png">
+<meta property="og:url" content="https://solongastoria.github.io/brushee/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/icon.png">
+<style>
+  :root {
+    --mint: #ddf5e7;
+    --mint-deep: #57c79a;
+    --green-ink: #1c7c5a;
+    --mint-soft: #eefaf3;
+    --coral: #ff8a63;
+    --coral-deep: #f2704a;
+    --amber: #ffd37a;
+    --ink: #23263a;
+    --ink-soft: #4c5168;
+    --cream: #fffdf7;
+    --card: #ffffff;
+    --line: #e4eee8;
+    --night: #2f3146;
+    --radius: 28px;
+    --shadow: 0 24px 60px rgba(35, 38, 58, 0.10);
+    --max: 1120px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    background: var(--cream);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; }
+  .wrap { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--green-ink);
+  }
+  h1, h2, h3 { line-height: 1.15; letter-spacing: -0.02em; margin: 0; }
+  h1 { font-size: clamp(38px, 6vw, 64px); font-weight: 800; }
+  h2 { font-size: clamp(28px, 3.6vw, 40px); font-weight: 800; }
+  h3 { font-size: 20px; font-weight: 750; }
+  p { margin: 0; }
+
+  /* nav */
+  header {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(255, 253, 247, .86);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(228, 238, 232, .7);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; text-decoration: none; }
+  .brand img { width: 34px; height: 34px; border-radius: 9px; }
+  .nav-links { display: flex; align-items: center; gap: 26px; font-size: 15px; font-weight: 600; color: var(--ink-soft); }
+  .nav-links a { text-decoration: none; }
+  .nav-links a:hover { color: var(--ink); }
+  @media (max-width: 760px) {
+    .nav-links { display: none; }
+    .nav > .btn { display: none; }
+  }
+
+  /* buttons */
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--ink); color: #fff; text-decoration: none;
+    padding: 14px 22px; border-radius: 999px; font-weight: 750; font-size: 16px;
+    box-shadow: 0 10px 24px rgba(35, 38, 58, .18);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(35, 38, 58, .22); }
+  .btn svg { width: 22px; height: 22px; flex: none; }
+  .btn-ghost {
+    background: transparent; color: var(--ink);
+    border: 1.5px solid var(--line); box-shadow: none;
+  }
+  .btn-ghost:hover { border-color: var(--mint-deep); }
+
+  /* hero */
+  .hero {
+    background:
+      radial-gradient(900px 500px at 82% 8%, rgba(87, 199, 154, .18), transparent 60%),
+      radial-gradient(700px 400px at 8% 92%, rgba(255, 138, 99, .13), transparent 60%),
+      var(--mint-soft);
+    padding: 76px 0 88px;
+    overflow: hidden;
+  }
+  .hero-grid { display: grid; grid-template-columns: 1.08fr .92fr; gap: 56px; align-items: center; }
+  .hero-copy { display: flex; flex-direction: column; gap: 22px; align-items: flex-start; }
+  .hero-copy p.lead { font-size: clamp(17px, 2vw, 20px); color: var(--ink-soft); max-width: 560px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: #fff; border: 1px solid var(--line); border-radius: 999px;
+    padding: 7px 13px; font-size: 13.5px; font-weight: 650; color: var(--ink-soft);
+  }
+  .chip b { color: var(--ink); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--mint-deep); flex: none; }
+  .phone {
+    justify-self: center; width: min(330px, 78vw);
+    border: 10px solid var(--night); border-radius: 44px; overflow: hidden;
+    background: var(--night); box-shadow: var(--shadow);
+    transform: rotate(1.5deg);
+  }
+  .phone img { width: 100%; height: auto; aspect-ratio: 9 / 16; object-fit: cover; }
+  @media (max-width: 880px) {
+    .hero { padding: 52px 0 64px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .phone { transform: none; }
+  }
+
+  /* sections */
+  section { padding: 84px 0; }
+  .section-head { display: flex; flex-direction: column; gap: 14px; max-width: 720px; margin-bottom: 44px; }
+  .section-head p { color: var(--ink-soft); font-size: 17px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 30px;
+    box-shadow: 0 10px 28px rgba(35, 38, 58, .05);
+  }
+  .card p { color: var(--ink-soft); font-size: 15.5px; margin-top: 10px; }
+  .icon-box {
+    width: 46px; height: 46px; border-radius: 14px;
+    display: grid; place-items: center; margin-bottom: 18px;
+    background: var(--mint); font-size: 22px;
+  }
+  @media (max-width: 880px) { .grid-3 { grid-template-columns: 1fr; } }
+
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  .split .phone { transform: rotate(-1.5deg); width: min(300px, 74vw); }
+  .split-copy { display: flex; flex-direction: column; gap: 18px; }
+  .checklist { display: flex; flex-direction: column; gap: 14px; margin-top: 6px; }
+  .checklist li { display: flex; gap: 12px; align-items: flex-start; color: var(--ink-soft); font-size: 16px; }
+  .checklist { list-style: none; padding: 0; }
+  .tiers { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 4px; }
+  .tiers-wrap { margin-top: 40px; }
+  .tier { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 18px; }
+  .tier .checklist { gap: 10px; margin-top: 0; }
+  .tier .checklist li { font-size: 14.5px; }
+  .tier .tick { width: 20px; height: 20px; font-size: 11px; }
+  .tier-tag {
+    display: inline-block; font-size: 11.5px; font-weight: 800; letter-spacing: .05em;
+    text-transform: uppercase; padding: 5px 9px; border-radius: 999px; margin-bottom: 12px;
+  }
+  .tier-tag.free { background: var(--mint); color: var(--green-ink); }
+  .tier-tag.plus { background: #fff3d6; color: #8a5a00; }
+  .tier-note { color: var(--ink-soft); font-size: 14px; margin-top: 14px; }
+  @media (max-width: 880px) { .tiers { grid-template-columns: 1fr; } }
+  .tick {
+    width: 24px; height: 24px; border-radius: 50%; flex: none;
+    background: var(--mint); color: #1c7c5a; display: grid; place-items: center;
+    font-weight: 900; font-size: 13px; margin-top: 2px;
+  }
+  @media (max-width: 880px) { .split { grid-template-columns: 1fr; gap: 36px; } .split .phone { transform: none; } }
+
+  /* privacy band */
+  .privacy { background: var(--night); color: #fff; }
+  .privacy h2 { color: #fff; }
+  .privacy .section-head p { color: rgba(255,255,255,.72); }
+  .privacy .card { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.12); box-shadow: none; }
+  .privacy .card p { color: rgba(255,255,255,.72); }
+  .privacy .icon-box { background: rgba(255,255,255,.1); }
+  .verify {
+    margin-top: 26px; background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.14); border-radius: 18px; padding: 20px 22px;
+    font-size: 15px; color: rgba(255,255,255,.8);
+  }
+  .verify b { color: #fff; }
+  .verify code {
+    background: rgba(255,255,255,.12); padding: 2px 7px; border-radius: 6px;
+    font-size: 13.5px; color: #fff;
+  }
+
+  /* faq */
+  details {
+    border-bottom: 1px solid var(--line); padding: 20px 0;
+  }
+  details:first-of-type { border-top: 1px solid var(--line); }
+  summary {
+    cursor: pointer; font-weight: 700; font-size: 17px; list-style: none;
+    display: flex; justify-content: space-between; gap: 20px; align-items: center;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; font-size: 24px; color: var(--green-ink); font-weight: 400; }
+  details[open] summary::after { content: "–"; }
+  details p { color: var(--ink-soft); margin-top: 12px; max-width: 780px; }
+
+  /* cta */
+  .cta {
+    background: linear-gradient(135deg, var(--mint) 0%, #f4fbf7 55%, #ffe9e1 100%);
+    text-align: center;
+  }
+  .cta .inner { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .cta p { color: var(--ink-soft); max-width: 560px; }
+
+  /* footer */
+  footer { background: var(--cream); border-top: 1px solid var(--line); padding: 40px 0 56px; }
+  .foot { display: flex; justify-content: space-between; gap: 28px; flex-wrap: wrap; font-size: 14px; color: var(--ink-soft); }
+  .foot-links { display: flex; gap: 22px; flex-wrap: wrap; }
+  .foot a { text-decoration: none; }
+  .foot a:hover { text-decoration: underline; }
+  .fine { margin-top: 22px; font-size: 12.5px; color: #6b7280; max-width: 760px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top"><img src="assets/icon.png" alt="">Brushee</a>
+    <nav class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#parents">For parents</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn" href="https://play.google.com/store/apps/details?id=com.brushyourteeth.app" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M4.2 2.6c-.3.3-.5.8-.5 1.4v16c0 .6.2 1.1.5 1.4l8.4-9.4-8.4-9.4Zm9.6 8.2 2.9-3.2-9.9-5.6c-.3-.2-.6-.2-.9-.1l7.9 8.9Zm0 2.4-7.9 8.9c.3.1.6.1.9-.1l9.9-5.6-2.9-3.2Zm1.4-1.2 3.4-1.9c.9-.5.9-1.7 0-2.2l-3.4-1.9-2.6 3 2.6 3Z"/></svg>
+      Get it on Google Play
+    </a>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="dot"></span>For kids aged 6–12</span>
+        <h1>Two minutes.<br>Actually two minutes.</h1>
+        <p class="lead">Brushee watches your child brush, tells them where to go next, and turns the 2-minute routine into a game. A little monster with 16 teeth is the scoreboard.</p>
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.brushyourteeth.app" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M4.2 2.6c-.3.3-.5.8-.5 1.4v16c0 .6.2 1.1.5 1.4l8.4-9.4-8.4-9.4Zm9.6 8.2 2.9-3.2-9.9-5.6c-.3-.2-.6-.2-.9-.1l7.9 8.9Zm0 2.4-7.9 8.9c.3.1.6.1.9-.1l9.9-5.6-2.9-3.2Zm1.4-1.2 3.4-1.9c.9-.5.9-1.7 0-2.2l-3.4-1.9-2.6 3 2.6 3Z"/></svg>
+          Get it on Google Play
+        </a>
+        <div class="chips">
+          <span class="chip"><b>Free core app</b></span>
+          <span class="chip"><b>No ads</b></span>
+          <span class="chip"><b>No account</b></span>
+          <span class="chip"><b>No internet permission</b></span>
+        </div>
+      </div>
+      <div class="phone">
+        <img src="assets/01-brushing.png" alt="Brushee brushing screen: the front camera shows a child brushing while a monster's teeth light up" width="1080" height="1920">
+      </div>
+    </div>
+  </div>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow"><span class="dot"></span>How it works</span>
+        <h2>Not a timer. A coach.</h2>
+        <p>A timer tells a child when to stop. Brushee tells them where to brush next — and shows them it's working.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="icon-box">⏱️</div>
+          <h3>A guided 2-minute routine</h3>
+          <p>Four mouth areas, 30 seconds each, then the chewing surfaces, then the tongue. A six-step bar shows exactly where your child is.</p>
+        </div>
+        <div class="card">
+          <div class="icon-box">👀</div>
+          <h3>It watches, right on screen</h3>
+          <p>The front camera finds your child's face and toothbrush, zooms in so the teeth are easy to see, and gives a spoken nudge when it's time to move on.</p>
+        </div>
+        <div class="card">
+          <div class="icon-box">🦷</div>
+          <h3>The monster is the scoreboard</h3>
+          <p>Each area your child finishes makes more of the monster's smile light up. Stars and streaks come from brushing every day — no separate reward chart needed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="parents" style="background: var(--mint-soft);">
+    <div class="wrap split">
+      <div class="phone">
+        <img src="assets/03-report-week.png" alt="Brushee parent report: days brushed, average duration, and which mouth areas were missed" width="1080" height="1920" loading="lazy">
+      </div>
+      <div class="split-copy">
+        <span class="eyebrow"><span class="dot"></span>For parents</span>
+        <h2>Know what actually happened.</h2>
+        <p style="color: var(--ink-soft); font-size: 17px;">A plain-language progress report: how many days your child brushed, how long they actually brushed, and which areas got less attention.</p>
+      </div>
+    </div>
+    <div class="wrap tiers-wrap">
+      <div class="tiers">
+        <div class="tier">
+          <span class="tier-tag free">Free</span>
+          <ul class="checklist">
+            <li><span class="tick">✓</span><span>The full guided brushing routine — all four areas, chewing surfaces and tongue.</span></li>
+            <li><span class="tick">✓</span><span>The monster, stars and streaks.</span></li>
+            <li><span class="tick">✓</span><span>Basic report: this week and the last brush.</span></li>
+            <li><span class="tick">✓</span><span>Daily reminders.</span></li>
+          </ul>
+        </div>
+        <div class="tier">
+          <span class="tier-tag plus">Brushee Plus · optional</span>
+          <ul class="checklist">
+            <li><span class="tick">✓</span><span>Longer trends and the full weekly report.</span></li>
+            <li><span class="tick">✓</span><span>Brushing coach: why an area is weak, and what to do next.</span></li>
+            <li><span class="tick">✓</span><span>Multiple children, each with their own stars and history.</span></li>
+            <li><span class="tick">✓</span><span>Second reminder, certificates, recorded messages, CSV export and report sharing.</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="tier-note">The core app is free. Plus is optional and starts with a free trial — the price and trial length are shown before you confirm anything.</p>
+    </div>
+    </div>
+  </section>
+
+  <section id="privacy" class="privacy">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow" style="color:#8fe3bd"><span class="dot"></span>Privacy</span>
+        <h2>The camera never leaves the phone.</h2>
+        <p>A camera pointed at a child is a serious thing. So Brushee is built so it cannot send the picture anywhere.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="icon-box">📵</div>
+          <h3>No internet permission</h3>
+          <p>Not "we don't upload" — the installed app has no internet permission at all. It has no way to send anything off the device.</p>
+        </div>
+        <div class="card">
+          <div class="icon-box">🧠</div>
+          <h3>Processed on-device</h3>
+          <p>Face and toothbrush detection run locally. Camera frames are used for the current moment, then discarded — never recorded, never stored.</p>
+        </div>
+        <div class="card">
+          <div class="icon-box">🗂️</div>
+          <h3>No account, no ads, no analytics</h3>
+          <p>No sign-up, no advertising SDK, no device identifiers. Brushing history stays in the app's private storage and can be deleted at any time.</p>
+        </div>
+      </div>
+      <div class="verify">
+        <b>Verify it yourself:</b> open <code>Settings → Apps → Brushee → Permissions</code>.
+        You'll see camera and notifications. There is no internet permission to grant.
+        The Play listing's Data safety section is the other place to check.
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap" style="max-width: 860px;">
+      <div class="section-head">
+        <span class="eyebrow"><span class="dot"></span>FAQ</span>
+        <h2>Questions parents ask.</h2>
+      </div>
+
+      <details>
+        <summary>Is Brushee free?</summary>
+        <p>Yes. The core app is free: the full camera-guided brushing routine (all four mouth areas, chewing surfaces and tongue), the monster, stars and streaks, a basic progress report, and daily reminders. Brushee Plus is an optional subscription for parent extras — longer trends, the brushing coach, multiple children, the weekly parent report, certificates, recorded messages, CSV export and report sharing. Plus starts with a free trial; the price and trial length are shown before you confirm anything, and you can cancel any time in Google Play.</p>
+      </details>
+
+      <details>
+        <summary>What's included in Brushee Plus?</summary>
+        <p>Plus adds the parent tools: longer trends, the full weekly report, the brushing coach (why an area is weak and what to do next), multiple children, a second reminder if a day is missed, milestone certificates, a recorded message for your child, CSV export of all records, and report sharing. The full brushing routine itself is free.</p>
+      </details>
+
+      <details>
+        <summary>Does it work without internet?</summary>
+        <p>Yes. Brushee doesn't request the internet permission, so it works the same on a plane, in a bathroom with bad Wi-Fi, or with mobile data off. Subscription checks are handled by the Google Play app, not by Brushee.</p>
+      </details>
+
+      <details>
+        <summary>Do you record or upload my child's face?</summary>
+        <p>No. Camera frames are processed on the device by an on-device model and discarded. They are never recorded and never uploaded. The app has no internet permission, so it has no way to send them anywhere.</p>
+      </details>
+
+      <details>
+        <summary>What ages is it for?</summary>
+        <p>Brushee is designed for children aged 6–12, and is meant to be set up by a parent or guardian. Younger children can use it with help; the routine itself is the same one dentists recommend for all ages.</p>
+      </details>
+
+      <details>
+        <summary>Does it check whether teeth are clean?</summary>
+        <p>No, and it doesn't claim to. Brushee guides the routine and shows which areas got time. It does not diagnose cavities or verify that every tooth surface is clean. For any oral-health concern, see a dentist.</p>
+      </details>
+
+      <details>
+        <summary>Is there an iPhone version?</summary>
+        <p>Not yet. Brushee is Android-only for now.</p>
+      </details>
+
+      <details>
+        <summary>Why does it need the camera?</summary>
+        <p>The camera is what lets Brushee see where the brush is and guide your child to the next area. Without camera access, the live guidance isn't available, but the rest of the app still works.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap inner">
+      <h2>Two minutes, twice a day.</h2>
+      <p>Brushee is on Google Play for Android. Free to use, no ads, no account. Plus is optional.</p>
+      <a class="btn" href="https://play.google.com/store/apps/details?id=com.brushyourteeth.app" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M4.2 2.6c-.3.3-.5.8-.5 1.4v16c0 .6.2 1.1.5 1.4l8.4-9.4-8.4-9.4Zm9.6 8.2 2.9-3.2-9.9-5.6c-.3-.2-.6-.2-.9-.1l7.9 8.9Zm0 2.4-7.9 8.9c.3.1.6.1.9-.1l9.9-5.6-2.9-3.2Zm1.4-1.2 3.4-1.9c.9-.5.9-1.7 0-2.2l-3.4-1.9-2.6 3 2.6 3Z"/></svg>
+        Get it on Google Play
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <strong>Brushee</strong><br>
+        A brushing coach for kids 6–12.
+      </div>
+      <div class="foot-links">
+        <a href="printables/">Free printables</a>
+        <a href="https://solongastoria.github.io/brushee-privacy/" target="_blank" rel="noopener">Privacy policy</a>
+        <a href="https://solongastoria.github.io/brushee-privacy/terms.html" target="_blank" rel="noopener">Terms of service</a>
+        <a href="https://discord.gg/gfuamuMyc9" target="_blank" rel="noopener">Parent community (18+)</a>
+        <a href="mailto:solongastoria+brushee@gmail.com">Contact</a>
+      </div>
+    </div>
+    <p class="fine">
+      Brushee is not a medical device. It provides general tooth-brushing guidance for children and does not diagnose, treat, cure or prevent any disease or condition.
+      The parent community is intended for adults aged 18 and over; it is not a place for children.
+      Google Play and the Google Play logo are trademarks of Google LLC.
+    </p>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "Brushee",
+  "operatingSystem": "Android",
+  "applicationCategory": "HealthApplication",
+  "description": "A camera-guided tooth brushing coach for children aged 6–12. Guides a 2-minute routine, turns it into a game, and gives parents a weekly report. No ads, no account, no internet permission.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "url": "https://play.google.com/store/apps/details?id=com.brushyourteeth.app"
+}
+</script>
+
+</body>
+</html>
