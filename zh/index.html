@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brushee 牙刷刷 — 摄像头引导的儿童刷牙教练（6–12 岁）</title>
+<meta name="description" content="Brushee 用前置摄像头带 6–12 岁的孩子走完一整套两分钟刷牙流程。一只 16 颗牙的小怪兽把计时器变成游戏。核心功能免费，无广告、无账号、不申请联网权限。">
+<link rel="canonical" href="https://solongastoria.github.io/brushee/zh/">
+<link rel="alternate" hreflang="en" href="https://solongastoria.github.io/brushee/">
+<link rel="alternate" hreflang="zh-Hans" href="https://solongastoria.github.io/brushee/zh/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Brushee 牙刷刷 — 给 6–12 岁孩子的刷牙教练">
+<meta property="og:description" content="摄像头引导的两分钟刷牙流程。一只 16 颗牙的小怪兽把计时器变成游戏。核心功能免费，无广告、无账号、不申请联网权限。">
+<meta property="og:image" content="https://solongastoria.github.io/brushee/assets/og.png">
+<meta property="og:url" content="https://solongastoria.github.io/brushee/zh/">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/icon.png">
+<style>
+  :root {
+    --mint: #ddf5e7;
+    --mint-deep: #57c79a;
+    --green-ink: #1c7c5a;
+    --mint-soft: #eefaf3;
+    --coral: #ff8a63;
+    --coral-deep: #f2704a;
+    --amber: #ffd37a;
+    --ink: #23263a;
+    --ink-soft: #4c5168;
+    --cream: #fffdf7;
+    --card: #ffffff;
+    --line: #e4eee8;
+    --night: #2f3146;
+    --radius: 28px;
+    --shadow: 0 24px 60px rgba(35, 38, 58, 0.10);
+    --max: 1120px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    background: var(--cream);
+    font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; }
+  .wrap { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 700; letter-spacing: .14em;
+    color: var(--green-ink);
+  }
+  h1, h2, h3 { line-height: 1.28; letter-spacing: 0; margin: 0; }
+  h1 { font-size: clamp(34px, 5vw, 54px); font-weight: 800; }
+  h2 { font-size: clamp(26px, 3.2vw, 36px); font-weight: 800; }
+  h3 { font-size: 19px; font-weight: 750; }
+  p { margin: 0; }
+
+  /* nav */
+  header {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(255, 253, 247, .86);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(228, 238, 232, .7);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; text-decoration: none; }
+  .brand img { width: 34px; height: 34px; border-radius: 9px; }
+  .nav-links { display: flex; align-items: center; gap: 26px; font-size: 15px; font-weight: 600; color: var(--ink-soft); }
+  .nav-links a { text-decoration: none; white-space: nowrap; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .lang {
+    font-size: 15px; font-weight: 700; color: var(--ink-soft); text-decoration: none;
+    border: 1.5px solid var(--line); border-radius: 999px; padding: 7px 14px; white-space: nowrap;
+  }
+  .lang:hover { border-color: var(--mint-deep); color: var(--ink); }
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+  }
+  @media (max-width: 520px) {
+    .nav-right .btn { display: none; }
+  }
+
+  /* buttons */
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--ink); color: #fff; text-decoration: none;
+    padding: 14px 22px; border-radius: 999px; font-weight: 750; font-size: 16px;
+    white-space: nowrap;
+    box-shadow: 0 10px 24px rgba(35, 38, 58, .18);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(35, 38, 58, .22); }
+  .btn svg { width: 22px; height: 22px; flex: none; }
+  .btn-ghost {
+    background: transparent; color: var(--ink);
+    border: 1.5px solid var(--line); box-shadow: none;
+  }
+  .btn-ghost:hover { border-color: var(--mint-deep); }
+
+  /* hero */
+  .hero {
+    background:
+      radial-gradient(900px 500px at 82% 8%, rgba(87, 199, 154, .18), transparent 60%),
+      radial-gradient(700px 400px at 8% 92%, rgba(255, 138, 99, .13), transparent 60%),
+      var(--mint-soft);
+    padding: 76px 0 88px;
+    overflow: hidden;
+  }
+  .hero-grid { display: grid; grid-template-columns: 1.08fr .92fr; gap: 56px; align-items: center; }
+  .hero-copy { display: flex; flex-direction: column; gap: 22px; align-items: flex-start; }
+  .hero-copy p.lead { font-size: clamp(17px, 2vw, 20px); color: var(--ink-soft); max-width: 560px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: #fff; border: 1px solid var(--line); border-radius: 999px;
+    padding: 7px 13px; font-size: 13.5px; font-weight: 650; color: var(--ink-soft);
+  }
+  .chip b { color: var(--ink); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--mint-deep); flex: none; }
+  .phone {
+    justify-self: center; width: min(330px, 78vw);
+    border: 10px solid var(--night); border-radius: 44px; overflow: hidden;
+    background: var(--night); box-shadow: var(--shadow);
+    transform: rotate(1.5deg);
+  }
+  .phone img { width: 100%; height: auto; aspect-ratio: 9 / 16; object-fit: cover; }
+  @media (max-width: 880px) {
+    .hero { padding: 52px 0 64px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .phone { transform: none; }
+  }
+
+  /* sections */
+  section { padding: 84px 0; }
+  .section-head { display: flex; flex-direction: column; gap: 14px; max-width: 720px; margin-bottom: 44px; }
+  .section-head p { color: var(--ink-soft); font-size: 17px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 30px;
+    box-shadow: 0 10px 28px rgba(35, 38, 58, .05);
+  }
+  .card p { color: var(--ink-soft); font-size: 15.5px; margin-top: 10px; }
+  .icon-box {
+    width: 46px; height: 46px; border-radius: 14px;
+    display: grid; place-items: center; margin-bottom: 18px;
+    background: var(--mint); font-size: 22px;
+  }
+  @media (max-width: 880px) { .grid-3 { grid-template-columns: 1fr; } }
+
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  .split .phone { transform: rotate(-1.5deg); width: min(300px, 74vw); }
+  .split-copy { display: flex; flex-direction: column; gap: 18px; }
+  .checklist { display: flex; flex-direction: column; gap: 14px; margin-top: 6px; }
+  .checklist li { display: flex; gap: 12px; align-items: flex-start; color: var(--ink-soft); font-size: 16px; }
+  .checklist { list-style: none; padding: 0; }
+  .tiers { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 4px; }
+  .tiers-wrap { margin-top: 40px; }
+  .tier { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 18px; }
+  .tier .checklist { gap: 10px; margin-top: 0; }
+  .tier .checklist li { font-size: 14.5px; }
+  .tier .tick { width: 20px; height: 20px; font-size: 11px; }
+  .tier-tag {
+    display: inline-block; font-size: 11.5px; font-weight: 800; letter-spacing: .05em;
+    padding: 5px 9px; border-radius: 999px; margin-bottom: 12px;
+  }
+  .tier-tag.free { background: var(--mint); color: var(--green-ink); }
+  .tier-tag.plus { background: #fff3d6; color: #8a5a00; }
+  .tier-note { color: var(--ink-soft); font-size: 14px; margin-top: 14px; }
+  @media (max-width: 880px) { .tiers { grid-template-columns: 1fr; } }
+  .tick {
+    width: 24px; height: 24px; border-radius: 50%; flex: none;
+    background: var(--mint); color: #1c7c5a; display: grid; place-items: center;
+    font-weight: 900; font-size: 13px; margin-top: 4px;
+  }
+  @media (max-width: 880px) { .split { grid-template-columns: 1fr; gap: 36px; } .split .phone { transform: none; } }
+
+  /* privacy band */
+  .privacy { background: var(--night); color: #fff; }
+  .privacy h2 { color: #fff; }
+  .privacy .section-head p { color: rgba(255,255,255,.72); }
+  .privacy .card { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.12); box-shadow: none; }
+  .privacy .card p { color: rgba(255,255,255,.72); }
+  .privacy .icon-box { background: rgba(255,255,255,.1); }
+  .verify {
+    margin-top: 26px; background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.14); border-radius: 18px; padding: 20px 22px;
+    font-size: 15px; color: rgba(255,255,255,.8);
+  }
+  .verify b { color: #fff; }
+  .verify code {
+    background: rgba(255,255,255,.12); padding: 2px 7px; border-radius: 6px;
+    font-size: 13.5px; color: #fff;
+  }
+
+  /* faq */
+  details {
+    border-bottom: 1px solid var(--line); padding: 20px 0;
+  }
+  details:first-of-type { border-top: 1px solid var(--line); }
+  summary {
+    cursor: pointer; font-weight: 700; font-size: 17px; list-style: none;
+    display: flex; justify-content: space-between; gap: 20px; align-items: center;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; font-size: 24px; color: var(--green-ink); font-weight: 400; }
+  details[open] summary::after { content: "–"; }
+  details p { color: var(--ink-soft); margin-top: 12px; max-width: 780px; }
+
+  /* cta */
+  .cta {
+    background: linear-gradient(135deg, var(--mint) 0%, #f4fbf7 55%, #ffe9e1 100%);
+    text-align: center;
+  }
+  .cta .inner { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .cta p { color: var(--ink-soft); max-width: 560px; }
+
+  /* footer */
+  footer { background: var(--cream); border-top: 1px solid var(--line); padding: 40px 0 56px; }
+  .foot { display: flex; justify-content: space-between; gap: 28px; flex-wrap: wrap; font-size: 14px; color: var(--ink-soft); }
+  .foot-links { display: flex; gap: 22px; flex-wrap: wrap; }
+  .foot a { text-decoration: none; }
+  .foot a:hover { text-decoration: underline; }
+  .fine { margin-top: 22px; font-size: 12.5px; color: #6b7280; max-width: 760px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top"><img src="../assets/icon.png" alt="">Brushee 牙刷刷</a>
+    <nav class="nav-links">
+      <a href="#how">怎么用</a>
+      <a href="#parents">给家长</a>
+      <a href="#privacy">隐私</a>
+      <a href="#faq">常见问题</a>
+    </nav>
+    <div class="nav-right">
+      <a class="lang" href="../" lang="en" hreflang="en">EN</a>
+      <a class="btn" href="https://play.google.com/store/apps/details?id=com.brushyourteeth.app" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M4.2 2.6c-.3.3-.5.8-.5 1.4v16c0 .6.2 1.1.5 1.4l8.4-9.4-8.4-9.4Zm9.6 8.2 2.9-3.2-9.9-5.6c-.3-.2-.6-.2-.9-.1l7.9 8.9Zm0 2.4-7.9 8.9c.3.1.6.1.9-.1l9.9-5.6-2.9-3.2Zm1.4-1.2 3.4-1.9c.9-.5.9-1.7 0-2.2l-3.4-1.9-2.6 3 2.6 3Z"/></svg>
+        在 Google Play 获取
+      </a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="dot"></span>适合 6–12 岁</span>
+        <h1>两分钟。<br>是真的两分钟。</h1>
+        <p class="lead">Brushee 看着孩子刷牙，告诉他下一步刷哪里，再把这两分钟变成一场游戏。一只 16 颗牙的小怪兽就是记分牌。</p>
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.brushyourteeth.app" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M4.2 2.6c-.3.3-.5.8-.5 1.4v16c0 .6.2 1.1.5 1.4l8.4-9.4-8.4-9.4Zm9.6 8.2 2.9-3.2-9.9-5.6c-.3-.2-.6-.2-.9-.1l7.9 8.9Zm0 2.4-7.9 8.9c.3.1.6.1.9-.1l9.9-5.6-2.9-3.2Zm1.4-1.2 3.4-1.9c.9-.5.9-1.7 0-2.2l-3.4-1.9-2.6 3 2.6 3Z"/></svg>
+          在 Google Play 获取
+        </a>
+        <div class="chips">
+          <span class="chip"><b>核心功能免费</b></span>
+          <span class="chip"><b>无广告</b></span>
+          <span class="chip"><b>不用注册</b></span>
+          <span class="chip"><b>不申请联网权限</b></span>
+        </div>
+      </div>
+      <div class="phone">
+        <img src="../assets/01-ready-zh.webp" alt="Brushee 刷牙页：孩子在镜头前刷牙，下面是准备清单、小怪兽和底栏" width="1080" height="1920">
+      </div>
+    </div>
+  </div>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow"><span class="dot"></span>怎么用</span>
+        <h2>不是计时器，是教练。</h2>
+        <p>计时器只告诉孩子什么时候停。Brushee 告诉他下一步刷哪里——并且让他看得见自己在起作用。</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="icon-box">⏱️</div>
+          <h3>带着走完两分钟</h3>
+          <p>四个牙区各 30 秒，然后是咬合面，最后是舌头。顶部六格进度条随时显示刷到哪一步。</p>
+        </div>
+        <div class="card">
+          <div class="icon-box">👀</div>
+          <h3>就在屏幕上看着</h3>
+          <p>前置摄像头找到孩子的脸和牙刷，自动拉近让牙齿看得清楚，该换区时用语音提醒。</p>
+        </div>
+        <div class="card">
+          <div class="icon-box">🦷</div>
+          <h3>小怪兽就是成绩单</h3>
+          <p>每刷完一个区，怪兽的牙就多亮一片。星星和连刷来自每天坚持——不需要另做奖励表。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="parents" style="background: var(--mint-soft);">
+    <div class="wrap split">
+      <div class="phone">
+        <img src="../assets/03-report-week-zh.webp" alt="Brushee 家长报告：本周刷了几天、平均时长、哪几个牙区刷得少" width="1080" height="1920" loading="lazy">
+      </div>
+      <div class="split-copy">
+        <span class="eyebrow"><span class="dot"></span>给家长</span>
+        <h2>看得见实际发生了什么。</h2>
+        <p style="color: var(--ink-soft); font-size: 17px;">一份说人话的进度报告：孩子这周刷了几天、每次实际刷了多久、哪几个区总是被漏掉。</p>
+      </div>
+    </div>
+    <div class="wrap tiers-wrap">
+      <div class="tiers">
+        <div class="tier">
+          <span class="tier-tag free">免费</span>
+          <ul class="checklist">
+            <li><span class="tick">✓</span><span>完整的刷牙引导——四个牙区、咬合面、舌头全都有。</span></li>
+            <li><span class="tick">✓</span><span>小怪兽、星星和连刷。</span></li>
+            <li><span class="tick">✓</span><span>基础报告：本周情况和最近一次刷牙。</span></li>
+            <li><span class="tick">✓</span><span>每日提醒。</span></li>
+          </ul>
+        </div>
+        <div class="tier">
+          <span class="tier-tag plus">Brushee Plus · 可选</span>
+          <ul class="checklist">
+            <li><span class="tick">✓</span><span>更长的趋势曲线和完整的家长周报。</span></li>
+            <li><span class="tick">✓</span><span>刷牙教练：告诉你这个区为什么弱、明天怎么改。</span></li>
+            <li><span class="tick">✓</span><span>多个宝宝，各自独立的星星和记录。</span></li>
+            <li><span class="tick">✓</span><span>补刷提醒、里程碑奖状、给孩子留句话、CSV 导出和报告分享。</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="tier-note">核心应用免费。Plus 是可选的家长功能订阅，价格在 Google Play 结账页上显示。</p>
+    </div>
+  </section>
+
+  <section id="privacy" class="privacy">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow" style="color:#8fe3bd"><span class="dot"></span>隐私</span>
+        <h2>摄像头画面从不离开这台手机。</h2>
+        <p>对着孩子的摄像头是件严肃的事。所以 Brushee 在设计上就做不到把画面传出去。</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="icon-box">📵</div>
+          <h3>没有联网权限</h3>
+          <p>不是"我们不上传"，而是装好的应用根本没有联网权限——它没有能力把任何东西送出这台设备。</p>
+        </div>
+        <div class="card">
+          <div class="icon-box">🧠</div>
+          <h3>全部在本地计算</h3>
+          <p>人脸和牙刷的识别都在手机上完成。画面只用于当前这一帧，用完即丢——不录制、不保存。</p>
+        </div>
+        <div class="card">
+          <div class="icon-box">🗂️</div>
+          <h3>无账号、无广告、无统计</h3>
+          <p>不用注册，没有广告 SDK，不收集设备标识。刷牙记录只存在应用的私有存储里，随时可以删除。</p>
+        </div>
+      </div>
+      <div class="verify">
+        <b>你可以自己验证：</b>打开 <code>设置 → 应用 → Brushee → 权限</code>。
+        你只会看到相机和通知，没有联网权限可以授予。
+        Google Play 商品页的「数据安全」一栏是第二个可以核对的地方。
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap" style="max-width: 860px;">
+      <div class="section-head">
+        <span class="eyebrow"><span class="dot"></span>常见问题</span>
+        <h2>家长最常问的几件事。</h2>
+      </div>
+
+      <details>
+        <summary>Brushee 免费吗？</summary>
+        <p>免费。核心功能不收费：完整的摄像头引导刷牙流程（四个牙区、咬合面、舌头）、小怪兽、星星和连刷、基础进度报告、每日提醒。Brushee Plus 是可选的家长功能订阅——更长的趋势、刷牙教练、多个宝宝、家长周报、奖状、给孩子留句话、CSV 导出和报告分享。订阅价格在 Google Play 结账页显示，随时可以在 Google Play 里取消。</p>
+      </details>
+
+      <details>
+        <summary>Brushee Plus 包含什么？</summary>
+        <p>Plus 增加的是家长工具：更长的趋势曲线、完整的家长周报、刷牙教练（这个区为什么弱、下一步怎么办）、多个宝宝、漏刷后的补刷提醒、里程碑奖状、给孩子录一段话、全部记录导出为 CSV，以及报告分享。刷牙流程本身免费。</p>
+      </details>
+
+      <details>
+        <summary>没有网络能用吗？</summary>
+        <p>能。Brushee 不申请联网权限，所以在飞机上、在 Wi-Fi 很差的卫生间里、或者关掉移动数据，用起来完全一样。订阅状态由 Google Play 应用负责校验，不由 Brushee 联网。</p>
+      </details>
+
+      <details>
+        <summary>会录下或上传孩子的脸吗？</summary>
+        <p>不会。摄像头画面在设备上由本地模型处理完就丢弃，既不录制也不上传。应用没有联网权限，也就没有把它们送出去的途径。</p>
+      </details>
+
+      <details>
+        <summary>适合多大年龄？</summary>
+        <p>Brushee 面向 6–12 岁的孩子，建议由家长或监护人完成初始设置。更小的孩子可以在大人帮助下使用，刷牙流程本身就是牙医推荐的那一套。</p>
+      </details>
+
+      <details>
+        <summary>它能判断牙齿刷干净了吗？</summary>
+        <p>不能，也没有这样宣称。Brushee 负责引导流程、显示哪个区刷到了时间，不诊断蛀牙，也不验证每个牙面是否干净。任何口腔健康问题请找牙医。</p>
+      </details>
+
+      <details>
+        <summary>有 iPhone 版吗？</summary>
+        <p>暂时没有，现在只有安卓版。</p>
+      </details>
+
+      <details>
+        <summary>为什么需要摄像头？</summary>
+        <p>摄像头让 Brushee 能看见牙刷的位置，从而引导孩子去下一个牙区。不开相机授权的话，实时引导用不了，但应用的其他部分照常可用。</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap inner">
+      <h2>两分钟，早晚各一次。</h2>
+      <p>Brushee 已在 Google Play 上架（安卓）。核心功能免费，无广告、不用注册。Plus 可选。</p>
+      <a class="btn" href="https://play.google.com/store/apps/details?id=com.brushyourteeth.app" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M4.2 2.6c-.3.3-.5.8-.5 1.4v16c0 .6.2 1.1.5 1.4l8.4-9.4-8.4-9.4Zm9.6 8.2 2.9-3.2-9.9-5.6c-.3-.2-.6-.2-.9-.1l7.9 8.9Zm0 2.4-7.9 8.9c.3.1.6.1.9-.1l9.9-5.6-2.9-3.2Zm1.4-1.2 3.4-1.9c.9-.5.9-1.7 0-2.2l-3.4-1.9-2.6 3 2.6 3Z"/></svg>
+        在 Google Play 获取
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <strong>Brushee 牙刷刷</strong><br>
+        给 6–12 岁孩子的刷牙教练。
+      </div>
+      <div class="foot-links">
+        <a href="../printables/">免费打印图表</a>
+        <a href="https://solongastoria.github.io/brushee-privacy/" target="_blank" rel="noopener">隐私政策</a>
+        <a href="https://solongastoria.github.io/brushee-privacy/terms.html" target="_blank" rel="noopener">服务条款</a>
+        <a href="https://discord.gg/gfuamuMyc9" target="_blank" rel="noopener">家长社区（18+）</a>
+        <a href="mailto:leonpq1987@gmail.com">联系我们</a>
+      </div>
+    </div>
+    <p class="fine">
+      Brushee 不是医疗器械。它提供面向儿童的通用刷牙指导，不诊断、不治疗、不预防任何疾病或状况。
+      家长社区面向 18 岁以上成年人，不适合儿童访问。
+      Google Play 与 Google Play 标志是 Google LLC 的商标。
+    </p>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "Brushee 牙刷刷",
+  "operatingSystem": "Android",
+  "applicationCategory": "HealthApplication",
+  "inLanguage": "zh-Hans",
+  "description": "面向 6–12 岁孩子的摄像头引导刷牙教练。带孩子走完两分钟刷牙流程，把过程变成游戏，并给家长一份周报。无广告、无账号、不申请联网权限。",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "url": "https://play.google.com/store/apps/details?id=com.brushyourteeth.app"
+}
+</script>
+
+</body>
+</html>

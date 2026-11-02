@@ -6,14 +6,19 @@
 
 ```
 landing/
-├── index.html              产品主页
+├── index.html              产品主页（英文）
+├── zh/index.html           产品主页（中文，资源走 ../assets/）
 ├── printables/index.html   三张可打印图表（Pinterest 的落点）
 └── assets/
     ├── icon.png            512×512 应用图标
     ├── og.png              1024×500 分享图
-    ├── 01-brushing.png     刷牙页截图
-    └── 03-report-week.png  家长周报截图
+    ├── 01-ready.webp       刷牙页截图（英）
+    ├── 03-report-week.webp 家长周报截图（英）
+    ├── 01-ready-zh.webp    刷牙页截图（中）
+    └── 03-report-week-zh.webp  家长周报截图（中）
 ```
+
+中英两页靠顶栏的 `中文 / EN` 互相切换，`<head>` 里互相声明了 hreflang。
 
 ## 部署（新建 `brushee` 仓库）
 
